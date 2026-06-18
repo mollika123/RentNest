@@ -3,18 +3,19 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@heroui/react";
-// import { useSession, signOut } from "@/lib/auth-client";
+import { useSession, signOut } from "@/lib/auth-client";
+import Logo from "./Logo";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  // const { data: session } = useSession();
+  const { data: session } = useSession();
 
-  // const user = session?.user;
+  const user = session?.user;
 
-  // const handleSignOut = async () => {
-  //   await signOut();
+  const handleSignOut = async () => {
+    await signOut();
 
-  // }
+  }
 
   const navLinks = [
     {
@@ -37,11 +38,11 @@ export default function Navbar() {
     },
   ];
 
-  const dashboardLinks = {
-    seeker: '/dashboard/seeker',
-    recruiter: '/dashboard/recruiter',
-    admin: '/dashboard/admin'
-  }
+  // const dashboardLinks = {
+  //   tenant: '/dashboard/tenant',
+  //   owner: '/dashboard/owner',
+  //   admin: '/dashboard/admin'
+  // }
 
   // if (user?.email) {
   //   navLinks.push(
@@ -53,18 +54,17 @@ export default function Navbar() {
   // }
 
   return (
-    <nav className="sticky top-0 z-50 border-b border-white/10 bg-[#0B0B0F]/80 backdrop-blur-xl">
+    <nav className="sticky top-0 z-50 bg-white">
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* LOGO */}
         <Link href="/" className="flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-600 to-fuchsia-500 shadow-lg">
-            <span className="text-xl font-bold text-white">P</span>
-          </div>
+        
 
           <div className="hidden leading-none sm:block">
-            <h1 className="text-lg font-bold text-white">
+            {/* <h1 className="text-lg font-bold text-white">
               RentNest
-            </h1>
+            </h1> */}
+            <Logo></Logo>
           </div>
         </Link>
 
@@ -73,12 +73,12 @@ export default function Navbar() {
           {/* Desktop Menu */}
           <div className="hidden items-center gap-6 md:flex">
             {/* Nav Links */}
-            <ul className="flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-3 py-2">
+            <ul className="flex items-center gap-1  bg-white/5 px-3 py-2">
               {navLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="rounded-full px-4 py-2 text-sm font-medium text-gray-300 transition hover:bg-white/10 hover:text-white"
+                    className="rounded-full px-4 py-2 text-sm font-medium text-blue-600 transition hover:bg-white/10 hover:text-white"
                   >
                     {link.label}
                   </Link>
@@ -100,19 +100,19 @@ export default function Navbar() {
                   </>
                   :
                   <Link
-                    href="/auth/signin"
-                    className="text-sm font-medium text-violet-400 transition hover:text-violet-300"
+                    href="/signin"
+                    className="text-sm font-medium text-blue-600 border-2 border-blue-400 rounded-md py-3 px-4 transition hover:text-violet-300"
                   >
-                    Sign In
+                   Signin
                   </Link>}
 
               <Button
                 as={Link}
-                href="/register"
+                href="/signup"
                 radius="lg"
                 className="h-11 bg-white px-6 text-sm font-semibold text-black hover:bg-gray-200"
               >
-                Get Started
+                Signup
               </Button>
             </div>
           </div>
@@ -120,7 +120,7 @@ export default function Navbar() {
           {/* MOBILE MENU BUTTON */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="flex items-center justify-center rounded-lg p-2 text-white transition hover:bg-white/10 md:hidden"
+            className="flex items-center justify-center rounded-lg p-2 text-black transition hover:bg-white/10 md:hidden"
             aria-label="Toggle Menu"
           >
             {isMenuOpen ? (
@@ -181,8 +181,8 @@ export default function Navbar() {
             <div className="border-t border-white/10 pt-4">
               <div className="flex flex-col gap-3">
                 <Link
-                  href="/login"
-                  className="rounded-xl px-4 py-3 text-base font-medium text-violet-400 transition hover:bg-white/5"
+                  href="/signin"
+                  className="rounded-xl px-4 py-3 text-base font-medium text-blue-600 transition hover:bg-white/5"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Sign In
@@ -190,11 +190,11 @@ export default function Navbar() {
 
                 <Button
                   as={Link}
-                  href="/register"
-                  className="bg-white font-semibold text-black"
+                  href="/signup"
+                  className="bg-white font-semibold text-blue-600 "
                   radius="lg"
                 >
-                  Get Started
+                  Signup
                 </Button>
               </div>
             </div>

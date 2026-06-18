@@ -1,42 +1,39 @@
+import React from "react";
 import Link from "next/link";
 import {
   LogoFacebook,
   LogoLinkedin,
   LogoGithub,
 } from "@gravity-ui/icons";
-
+import Logo from "./Logo";
 
 export default function Footer() {
+  const currentYear = new Date().getFullYear();
+
   return (
-    <footer className="border-t border-white/10 bg-black text-white">
+    <footer className="border-t border-white/10  text-white">
       <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
         {/* TOP SECTION */}
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
-          {/* LEFT */}
+          {/* LEFT COLUMN - BRAND */}
           <div className="space-y-6">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-3">
-              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-600 to-fuchsia-500">
-                <span className="text-xl font-bold text-white">P</span>
-              </div>
-
-              <div className="leading-none">
-                <h2 className="text-xl font-bold">Hiring</h2>
-                <h2 className="text-xl font-bold">Loop</h2>
-              </div>
+              <Logo />
             </Link>
 
             {/* Description */}
             <p className="max-w-xs leading-8 text-gray-400">
-              The AI-native career platform. Built for people who take
-              their work seriously.
+              The modern property management platform. Built for landlords and 
+              tenants who value seamless rental workflows.
             </p>
 
             {/* Social Icons */}
-            <div className="flex items-center gap-4 pt-6">
+            <div className="flex items-center gap-4 pt-4">
               <Link
                 href="#"
                 className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/10 transition hover:bg-violet-600"
+                aria-label="Facebook"
               >
                 <LogoFacebook className="h-5 w-5" />
               </Link>
@@ -44,6 +41,7 @@ export default function Footer() {
               <Link
                 href="#"
                 className="flex h-12 w-12 items-center justify-center rounded-xl bg-violet-600 transition hover:bg-violet-500"
+                aria-label="GitHub"
               >
                 <LogoGithub className="h-5 w-5" />
               </Link>
@@ -51,94 +49,77 @@ export default function Footer() {
               <Link
                 href="#"
                 className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/10 transition hover:bg-violet-600"
+                aria-label="LinkedIn"
               >
                 <LogoLinkedin className="h-5 w-5" />
               </Link>
             </div>
           </div>
 
-          {/* PRODUCT */}
+          {/* PRODUCT COLUMN */}
           <div>
             <h3 className="mb-6 text-lg font-semibold text-violet-500">
               Product
             </h3>
-
             <ul className="space-y-4 text-gray-400">
               <li>
-                <Link href="/jobs" className="transition hover:text-white">
-                  Job discovery
+                <Link href="/properties" className="transition hover:text-white">
+                  Rent Management
                 </Link>
               </li>
-
               <li>
-                <Link href="/worker-ai" className="transition hover:text-white">
-                  Worker AI
+                <Link href="/tenant-screening" className="transition hover:text-white">
+                  Tenant Screening
                 </Link>
               </li>
-
               <li>
-                <Link href="/companies" className="transition hover:text-white">
-                  Companies
+                <Link href="/maintenance" className="transition hover:text-white">
+                  Maintenance Hub
                 </Link>
               </li>
-
               <li>
-                <Link href="/salary" className="transition hover:text-white">
-                  Salary data
+                <Link href="/pricing" className="transition hover:text-white">
+                  Pricing Plans
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* NAVIGATION */}
+          {/* NAVIGATION COLUMN */}
           <div>
             <h3 className="mb-6 text-lg font-semibold text-violet-500">
-              Navigations
+              Navigation
             </h3>
-
             <ul className="space-y-4 text-gray-400">
               <li>
-                <Link
-                  href="/help-center"
-                  className="transition hover:text-white"
-                >
-                  Help center
+                <Link href="/help-center" className="transition hover:text-white">
+                  Help Center
                 </Link>
               </li>
-
               <li>
-                <Link
-                  href="/career-library"
-                  className="transition hover:text-white"
-                >
-                  Career library
+                <Link href="/landlord-guides" className="transition hover:text-white">
+                  Landlord Guides
                 </Link>
               </li>
-
               <li>
                 <Link href="/contact" className="transition hover:text-white">
-                  Contact
+                  Contact Support
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* RESOURCES */}
+          {/* RESOURCES COLUMN */}
           <div>
             <h3 className="mb-6 text-lg font-semibold text-violet-500">
               Resources
             </h3>
-
             <ul className="space-y-4 text-gray-400">
               <li>
-                <Link
-                  href="/brand-guideline"
-                  className="transition hover:text-white"
-                >
-                  Brand Guideline
+                <Link href="/legal-forms" className="transition hover:text-white">
+                  Lease Agreements
                 </Link>
               </li>
-
               <li>
                 <Link href="/newsroom" className="transition hover:text-white">
                   Newsroom
@@ -148,17 +129,16 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* BOTTOM */}
+        {/* BOTTOM SECTION */}
         <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-sm text-gray-500 md:flex-row">
-          <p>Copyright 2024 — Hire Loop</p>
+          <p>Copyright {currentYear} — RentNest Inc.</p>
 
           <div className="flex items-center gap-6">
             <Link href="/terms" className="transition hover:text-white">
               Terms & Policy
             </Link>
-
             <Link href="/privacy" className="transition hover:text-white">
-              Privacy Guideline
+              Privacy Guidelines
             </Link>
           </div>
         </div>
