@@ -86,7 +86,7 @@ const PropertyDetailsPage = async ({ params }) => {
           {/* ডানের কলাম: প্রাইসিং, বুকিং এবং ফেভারিট বাটন সাইডবার */}
           <div className="h-fit border border-gray-200 rounded-2xl p-6 bg-white shadow-sm space-y-4">
             <div>
-              <p className="text-xs text-gray-400 font-semibold uppercase tracking-wider">Rental Price</p>
+              <p className="text-xs text-gray-500 font-semibold uppercase tracking-wider">Rental Price</p>
               <div className="text-blue-600 font-extrabold text-3xl mt-1">
                 ৳{formattedRent}
                 <span className="text-sm font-medium text-blue-500"> /{property.rentType?.toLowerCase() || "month"}</span>
