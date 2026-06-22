@@ -38,20 +38,20 @@ export default function Navbar() {
     },
   ];
 
-  // const dashboardLinks = {
-  //   tenant: '/dashboard/tenant',
-  //   owner: '/dashboard/owner',
-  //   admin: '/dashboard/admin'
-  // }
+  const dashboardLinks = {
+    tenant: '/dashboard/tenant',
+    owner: '/dashboard/owner',
+    admin: '/dashboard/admin'
+  }
 
-  // if (user?.email) {
-  //   navLinks.push(
-  //     {
-  //       label: 'Dashboard',
-  //       href: dashboardLinks[user?.role || 'seeker']
-  //     }
-  //   )
-  // }
+  if (user?.email) {
+    navLinks.push(
+      {
+        label: 'Dashboard',
+        href: dashboardLinks[user?.role || 'tenant']
+      }
+    )
+  }
 
   return (
     <nav className="sticky top-0 z-50 bg-white">
