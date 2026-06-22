@@ -1,57 +1,14 @@
 "use client";
+import { getPropertyById } from "@/lib/api/property";
 import React, { useState } from "react";
 
 export default function BookingModal({ property }) {
+  
+  console.log(property);
   const [isOpen, setIsOpen] = useState(false);
-  const [userName, setUserName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [moveInDate, setMoveInDate] = useState("");
-  const [submitting, setSubmitting] = useState(false);
-
-  const handleBookingSubmit = async (e) => {
-    e.preventDefault();
-    setSubmitting(true);
-
-    const bookingData = {
-      propertyId: property._id?.$oid || property._id,
-      title: property.title,
-      price: property.monthlyRent,
-      userName: userName.trim(),
-      email: email.trim(),
-      phone: phone.trim(),
-      moveInDate,
-    };
-
-    try {
-      // এক্সপ্রেস ব্যাকএন্ডে বুকিং ডেটা পাঠানো হচ্ছে
-      const response = await fetch("http://localhost:5000/api/bookings", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(bookingData),
-      });
-
-      const data = await response.json();
-
-      if (response.ok && data.success) {
-        // ফিক্স: বুকিং সফল হলে ব্যাকএন্ড থেকে আসা পেমেন্ট URL-এ রিডাইরেক্ট করবে
-        // (যদি ব্যাকএন্ডে কোনো গেটওয়ে না থাকে, তবে সাময়িক টেস্টের জন্য আপনি ডাইরেক্ট ফ্রন্টএন্ড পেমেন্ট পেজে পাঠাতে পারেন)
-        if (data.paymentUrl) {
-          window.location.href = data.paymentUrl;
-        } else {
-          // ব্যাকএন্ডে পেমেন্ট ইউআরএল না থাকলে ডামি হিসেবে ফ্রন্টএন্ডের /payment পেজে আইডি সহ পাঠাবে
-          window.location.href = `/payment?bookingId=${data.insertedId}&amount=${property.monthlyRent}`;
-        }
-      } else {
-        alert(data.error || "Something went wrong during booking.");
-      }
-    } catch (error) {
-      console.error("Booking submit error:", error);
-      alert("Could not connect to the server.");
-    } finally {
-      setSubmitting(false);
-    }
-  };
+ 
+  
+  const propertyId = property._id?.$oid || property._id;
 
   return (
     <>
@@ -76,7 +33,15 @@ export default function BookingModal({ property }) {
               ✕
             </button>
 
-            <form onSubmit={handleBookingSubmit} className="space-y-4">
+            {/* 👉 আপনার প্রোডাক্ট পেজের মতো সরাসরি এক্সপ্রেস ব্যাকএন্ডে ফর্ম পোস্ট অ্যাকশন */}
+            <form 
+              action="/api/checkout_sessions" 
+              method="POST" 
+              className="space-y-4"
+            >
+
+            
+         
               <div>
                 <h3 className="text-xl font-bold text-gray-900">Confirm Your Booking</h3>
                 <p className="text-xs text-gray-400 mt-1">Property: {property.title}</p>
@@ -85,15 +50,19 @@ export default function BookingModal({ property }) {
 
               <hr className="border-gray-100" />
 
+              {/* 🛑 হিডেন ইনপুট ফিল্ডস (প্রপার্টির তথ্য ব্যাকএন্ডে সাবমিট করার জন্য) */}
+              <input type="hidden" name="propertyId" value={propertyId} />
+              <input type="hidden" name="title" value={property.title} />
+              <input type="hidden" name="price" value={property.monthlyRent} />
+
               {/* ১. ইউজার নেম ফিল্ড */}
               <div className="flex flex-col gap-1">
                 <label className="text-xs font-semibold text-gray-600 uppercase">Your Name</label>
                 <input
                   type="text"
+                  name="userName"
                   required
                   placeholder="John Doe"
-                  value={userName}
-                  onChange={(e) => setUserName(e.target.value)}
                   className="w-full text-sm border border-gray-200 rounded-lg px-3 py-2 bg-white outline-none focus:border-gray-400 text-gray-700"
                 />
               </div>
@@ -103,10 +72,9 @@ export default function BookingModal({ property }) {
                 <label className="text-xs font-semibold text-gray-600 uppercase">Email Address</label>
                 <input
                   type="email"
+                  name="email"
                   required
                   placeholder="johndoe@example.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
                   className="w-full text-sm border border-gray-200 rounded-lg px-3 py-2 bg-white outline-none focus:border-gray-400 text-gray-700"
                 />
               </div>
@@ -116,10 +84,9 @@ export default function BookingModal({ property }) {
                 <label className="text-xs font-semibold text-gray-600 uppercase">Phone Number</label>
                 <input
                   type="tel"
+                  name="phone"
                   required
                   placeholder="01XXXXXXXXX"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
                   className="w-full text-sm border border-gray-200 rounded-lg px-3 py-2 bg-white outline-none focus:border-gray-400 text-gray-700"
                 />
               </div>
@@ -129,22 +96,21 @@ export default function BookingModal({ property }) {
                 <label className="text-xs font-semibold text-gray-600 uppercase">Target Move-In Date</label>
                 <input
                   type="date"
+                  name="moveInDate"
                   required
-                  value={moveInDate}
-                  onChange={(e) => setMoveInDate(e.target.value)}
                   className="w-full text-sm border border-gray-200 rounded-lg px-3 py-2 bg-white outline-none focus:border-gray-400 text-gray-700"
                 />
               </div>
 
               {/* সাবমিট বাটন */}
               <button
-                type="submit"
-                disabled={submitting}
-                className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 text-white font-semibold text-sm py-2.5 rounded-lg transition-colors shadow-sm mt-2"
+                type="submit"     
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm py-2.5 rounded-lg transition-colors shadow-sm mt-2"
               >
-                {submitting ? "Processing..." : "Confirm Booking & Pay"}
+                Confirm Booking & Pay
               </button>
             </form>
+            
           </div>
         </div>
       )}
