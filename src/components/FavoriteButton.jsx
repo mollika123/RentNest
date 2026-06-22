@@ -1,0 +1,64 @@
+"use client";
+import React, { useState } from "react";
+
+export default function FavoriteButton({ propertyId }) {
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const handleToggleFavorite = async () => {
+    if (loading) return;
+    setLoading(true);
+
+    try {
+      // ⚠️ ফিক্স: এখানে এক্সপ্রেস ব্যাকএন্ডের সম্পূর্ণ পোর্ট ইউআরএল ব্যবহার করুন
+      // আপনার এক্সপ্রেস সার্ভার যে পোর্টে চলছে (যেমন: 5000) সেটি নিশ্চিত করুন
+      const response = await fetch("http://localhost:5000/api/favorites", {
+        method: "POST",
+        headers: { 
+          "Content-Type": "application/json" 
+        },
+        body: JSON.stringify({ propertyId }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        // ক্লিক সফল হলে বাটনের কালার ও টেক্সট চেঞ্জ হবে
+        setIsFavorite(!isFavorite);
+      } else {
+        alert(data.error || "Failed to add to favorites.");
+      }
+    } catch (error) {
+      console.error("Favorite toggle error:", error);
+      alert("Could not connect to the backend server for favorites.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <button
+      onClick={handleToggleFavorite}
+      disabled={loading}
+      className={`w-full flex items-center justify-center gap-2 font-semibold text-sm py-3 px-4 rounded-xl border transition-all active:scale-[0.99] ${
+        isFavorite
+          ? "bg-red-50 border-red-200 text-red-600 shadow-sm"
+          : "bg-white border-gray-200 text-gray-700 hover:bg-gray-50 disabled:opacity-60"
+      }`}
+    >
+      <svg
+        className={`w-5 h-5 transition-colors ${isFavorite ? "fill-red-500 text-red-500" : "text-gray-500 fill-none"}`}
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+        />
+      </svg>
+      {loading ? "Processing..." : isFavorite ? "Saved to Favorites" : "Add to Favorites"}
+    </button>
+  );
+}
