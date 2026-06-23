@@ -40,7 +40,7 @@ export async function POST(request) {
           quantity: 1,
         },
       ],
-      // 🛑 স্ট্রাইপ মেটাডাটায় অবশ্যই সব ভ্যালু STRING হতে হবে
+     
       metadata: {
         price: String(price),
         userId: user?.id ? String(user.id) : "guest",

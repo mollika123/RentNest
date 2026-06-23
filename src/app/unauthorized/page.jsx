@@ -42,7 +42,7 @@ export default function UnauthorizedPage() {
         <div className="flex flex-col sm:flex-row gap-3 pt-2">
           {/* লগইন পেজে যাওয়ার বাটন */}
           <Link
-            href="/login"
+            href="/signin"
             className="flex-1 inline-flex items-center justify-center px-5 py-3 border border-transparent text-sm font-semibold rounded-xl text-white bg-blue-600 hover:bg-blue-700 transition-colors shadow-sm"
           >
             Log In Now

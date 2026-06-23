@@ -12,7 +12,7 @@ export default function BookingModal({ property }) {
 
   return (
     <>
-      {/* মেইন বুক বাটন */}
+     
       <button
         onClick={() => setIsOpen(true)}
         className="w-full text-center bg-[#171717] hover:bg-[#262626] text-white font-semibold text-sm py-3 px-4 rounded-xl transition-colors block shadow-sm"
@@ -20,7 +20,7 @@ export default function BookingModal({ property }) {
         Book Property
       </button>
 
-      {/* মোডাল পপআপ */}
+     
       {isOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
           <div className="bg-white rounded-2xl max-w-md w-full border border-gray-100 shadow-2xl p-6 relative animate-in fade-in zoom-in-95 duration-200">
@@ -33,7 +33,7 @@ export default function BookingModal({ property }) {
               ✕
             </button>
 
-            {/* 👉 আপনার প্রোডাক্ট পেজের মতো সরাসরি এক্সপ্রেস ব্যাকএন্ডে ফর্ম পোস্ট অ্যাকশন */}
+   
             <form 
               action="/api/checkout_sessions" 
               method="POST" 
@@ -50,12 +50,12 @@ export default function BookingModal({ property }) {
 
               <hr className="border-gray-100" />
 
-              {/* 🛑 হিডেন ইনপুট ফিল্ডস (প্রপার্টির তথ্য ব্যাকএন্ডে সাবমিট করার জন্য) */}
+        
               <input type="hidden" name="propertyId" value={propertyId} />
               <input type="hidden" name="title" value={property.title} />
               <input type="hidden" name="price" value={property.monthlyRent} />
 
-              {/* ১. ইউজার নেম ফিল্ড */}
+  
               <div className="flex flex-col gap-1">
                 <label className="text-xs font-semibold text-gray-600 uppercase">Your Name</label>
                 <input
@@ -67,7 +67,7 @@ export default function BookingModal({ property }) {
                 />
               </div>
 
-              {/* ২. ইমেইল ফিল্ড */}
+           
               <div className="flex flex-col gap-1">
                 <label className="text-xs font-semibold text-gray-600 uppercase">Email Address</label>
                 <input
@@ -79,7 +79,7 @@ export default function BookingModal({ property }) {
                 />
               </div>
 
-              {/* ৩. ফোন নাম্বার ফিল্ড */}
+       
               <div className="flex flex-col gap-1">
                 <label className="text-xs font-semibold text-gray-600 uppercase">Phone Number</label>
                 <input

@@ -2,7 +2,7 @@ import { getUserSession } from "@/lib/core/session";
 import { Card, Avatar, Button, Chip } from "@heroui/react";
 import Image from "next/image";
 
-export default async function OwnerProfile() {
+export default async function TenantProfile() {
   const user = await getUserSession();
 
   return (

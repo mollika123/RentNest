@@ -10,6 +10,8 @@ const PropertyDetailsPage = async ({ params }) => {
   const { id } = await params;
   const property = await getPropertyById(id);
 
+  console.log("property",property);
+
   if (!property) {
     notFound();
   }
@@ -33,7 +35,7 @@ const PropertyDetailsPage = async ({ params }) => {
         {/* ২. কন্টেন্ট লেআউট গ্রিড */}
         <div className="p-8 grid grid-cols-1 md:grid-cols-3 gap-8">
           
-          {/* বামের কলাম: প্রোপার্টি ইনফরমেশন, এমেনিটিজ ও রিভিউ সেকশন */}
+     
           <div className="md:col-span-2 space-y-8">
             <div>
               <span className="bg-blue-50 text-blue-600 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">
@@ -99,7 +101,7 @@ const PropertyDetailsPage = async ({ params }) => {
             <BookingModal property={property} />
 
             {/* খ) বুক নাও বাটনের ঠিক নিচে অ্যাড টু ফেভারিট বাটন */}
-            <FavoriteButton propertyId={id} />
+            <FavoriteButton property={property} />
 
          
           </div>

@@ -1,7 +1,9 @@
 "use client";
 import React, { useState } from "react";
 
-export default function FavoriteButton({ propertyId }) {
+
+export default function FavoriteButton({ property }) {
+  console.log("property",property);
   const [isFavorite, setIsFavorite] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -10,20 +12,24 @@ export default function FavoriteButton({ propertyId }) {
     setLoading(true);
 
     try {
-      // ⚠️ ফিক্স: এখানে এক্সপ্রেস ব্যাকএন্ডের সম্পূর্ণ পোর্ট ইউআরএল ব্যবহার করুন
-      // আপনার এক্সপ্রেস সার্ভার যে পোর্টে চলছে (যেমন: 5000) সেটি নিশ্চিত করুন
-      const response = await fetch("http://localhost:5000/api/favorites", {
-        method: "POST",
-        headers: { 
-          "Content-Type": "application/json" 
-        },
-        body: JSON.stringify({ propertyId }),
-      });
-
+    const response = await fetch(
+  `${process.env.NEXT_PUBLIC_BASE_URL}/api/favorites`,
+  {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      propertyId: property._id,
+      propertyName: property.title,
+      monthlyRent: property.monthlyRent,
+      location: property.location,
+    }),
+  }
+);
       const data = await response.json();
 
       if (response.ok && data.success) {
-        // ক্লিক সফল হলে বাটনের কালার ও টেক্সট চেঞ্জ হবে
         setIsFavorite(!isFavorite);
       } else {
         alert(data.error || "Failed to add to favorites.");
