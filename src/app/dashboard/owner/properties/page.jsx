@@ -1,18 +1,26 @@
 import OwnerPropertyTable from '@/components/dashboard/OwnerPropertyTable';
-import { getLoggedInAgency } from '@/lib/api/agency';
 import { getProperty } from '@/lib/api/property';
-import React from 'react';
+import { getUserSession } from '@/lib/core/session';
 
-const OwnerProperty =async () => {
-  const agency=await getLoggedInAgency()
+
+const OwnerProperty = async () => {
+  
+  const user = await getUserSession();
+  
+  console.log("Logged In User:", user);
+
  
-  const properties = agency?._id
-    ? await getProperty(agency._id)
+  const userId = user?.id
+  console.log("USER _ID:", user?.id);
+  const properties = userId
+    ? await getProperty(userId,"pending")
     : [];
-  console.log('properties',properties);
+
+  console.log('properties', properties);
+
   return (
     <div>
-      <OwnerPropertyTable properties={properties}></OwnerPropertyTable>
+      <OwnerPropertyTable properties={properties} />
     </div>
   );
 };

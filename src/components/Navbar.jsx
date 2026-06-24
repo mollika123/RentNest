@@ -106,14 +106,14 @@ export default function Navbar() {
                    Signin
                   </Link>}
 
-              <Button
-                as={Link}
-                href="/signup"
-                radius="lg"
-                className="h-11 bg-white px-6 text-sm font-semibold text-black hover:bg-gray-200"
-              >
-                Signup
-              </Button>
+             <Link href="/signup">
+                    <Button
+                      radius="lg"
+                      className="h-11 bg-blue-600 px-6 text-sm font-semibold text-white hover:bg-blue-700"
+                    >
+                      Signup
+                    </Button>
+                  </Link>
             </div>
           </div>
 
@@ -188,14 +188,14 @@ export default function Navbar() {
                   Sign In
                 </Link>
 
-                <Button
-                  as={Link}
-                  href="/signup"
-                  className="bg-white font-semibold text-blue-600 "
-                  radius="lg"
-                >
-                  Signup
-                </Button>
+               <Link href="/signup">
+                    <Button
+                      radius="lg"
+                      className="h-11 bg-blue-600 px-6 text-sm font-semibold text-white hover:bg-blue-700"
+                    >
+                      Signup
+                    </Button>
+                  </Link>
               </div>
             </div>
           </div>

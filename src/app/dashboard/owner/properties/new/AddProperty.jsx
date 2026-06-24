@@ -17,10 +17,17 @@ import { House, Pin, CircleDollar, SquareHashtag, LayoutRows, ListUl, Picture } 
 import { createProperty } from "@/lib/actions/property";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { useSession } from "@/lib/auth-client";
 
 export default function AddProperty({ agency }) {
     const router = useRouter();
-    
+ const { data: session, isPending } = useSession();
+
+if (isPending) {
+  return <p>Loading...</p>;
+}
+
+const user = session?.user;
     // সিলেক্টেড স্টেট ম্যানেজমেন্ট
     const [propertyType, setPropertyType] = useState("");
     const [rentType, setRentType] = useState("");
@@ -45,12 +52,12 @@ const handleSubmit = async (e) => {
     // ১. প্রথমে ফর্মের সব নেটিভ ডেটা অবজেক্টে রূপান্তর করুন
     const data = Object.fromEntries(formData.entries());
     
-    // ২. 🛠️ ফিক্স: কাস্টম স্টেটের ভ্যালু দুটিকে ম্যানুয়ালি ডেটাতে অ্যাসাইন করুন (ভ্যালিডেশনের আগে)
+   
  
 
     const selectedAmenities = formData.getAll("amenities");
 
-    // ৩. এখন ক্লায়েন্ট সাইড ভ্যালিডেশন রান হবে (স্টেটের আপডেটেড ভ্যালু নিয়ে)
+  
     const newErrors = {};
     if (!data.title) newErrors.title = "Property title is required";
     if (!data.location) newErrors.location = "Location is required";
@@ -70,15 +77,14 @@ const handleSubmit = async (e) => {
 
     setErrors({});
     
-    // বাকি কোড (payload এবং API কল) আগের মতোই থাকবে...
 
         const payload = {
             ...data,
-            ownerId: agency?.ownerId || null,
+           ownerId: user?.id || user?._id || null,
             agencyName: agency?.agencyName || agency?.name || "Independent Owner",
             agencyId: agency?._id || null,
             agencyLogo: agency?.logo || null,
-            status: "active",
+           status: "pending",
             amenities: selectedAmenities,
             createdAt: new Date(),
         };
@@ -87,8 +93,7 @@ const handleSubmit = async (e) => {
             const res = await createProperty(payload);
             if (res?.insertedId) {
                 toast.success("Property added successfully 🎉");
-                
-                // স্টেট রিসেট করার আগে সিলেক্ট বক্স সেফ রাখা
+   
                 setPropertyType("");
                 setRentType("");
                 

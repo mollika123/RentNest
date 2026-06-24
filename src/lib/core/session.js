@@ -7,12 +7,21 @@ export const getUserSession = async () => {
         headers: await headers() // some endpoints might require headers
     })
 
-    return session?.user || null;
+     if (!session) return null;
+
+  return {
+    id: session.userId,   // 🔥 KEY FIX
+    ...session.user
+  };
 }
 
 export const requireRole = async (role) => {
     const user = await getUserSession()
+    if (!user) {
+        redirect('/signin')
+    }
     if (user.role !== role) {
       return  redirect('/unauthorized')
     }
+    return user
 }

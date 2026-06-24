@@ -11,5 +11,10 @@ export const getOwnerAgency = async (ownerId) => {
 
 export const getLoggedInAgency = async () => {
     const user = await getUserSession();
-    return getOwnerAgency (user?.id);
+
+    if (!user) {
+        console.error("❌ No logged in user found");
+        return null;
+    }
+    return getOwnerAgency (user?.id ||user?._id);
 }

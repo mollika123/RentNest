@@ -5,11 +5,10 @@ import { Table, Chip } from "@heroui/react";
 import { Eye, Pencil, Trash, Video } from "lucide-react";
 
 const statusColorMap = {
-  active: "success",
-  inactive: "danger",
-  pending: "warning",
+  Pending: "warning",
+  Approved: "success",
+  Rejected: "danger",
 };
-
 export default function OwnerPropertyTable({ properties = [] }) {
 
                 console.log("properties",properties);
@@ -64,13 +63,13 @@ export default function OwnerPropertyTable({ properties = [] }) {
                   <Table.Cell>{item.propertyType} </Table.Cell>
 
                   <Table.Cell>
-                    <Chip
-                      size="sm"
-                      variant="soft"
-                      color={statusColorMap[item.status] || "default"}
-                    >
-                      {item.status}
-                    </Chip>
+                   <Chip
+  size="sm"
+  variant="soft"
+  color={statusColorMap[item.status] ?? "warning"}
+>
+  {item.status}
+</Chip>
                   </Table.Cell>
 
                   {/* ACTIONS */}

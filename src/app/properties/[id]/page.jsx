@@ -1,13 +1,24 @@
 import { getPropertyById } from '@/lib/api/property';
 import React from 'react';
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import FavoriteButton from "@/components/FavoriteButton";
 import BookingModal from "@/components/BookingModal";
 import ReviewSection from "@/components/ReviewSection";
 import Image from 'next/image';
+import { headers } from 'next/headers';
+import { auth } from '@/lib/auth';
 
 const PropertyDetailsPage = async ({ params }) => {
   const { id } = await params;
+
+  const session = await auth.api.getSession({
+    headers: await headers()
+  });
+
+ 
+  if (!session?.user) {
+    redirect(`/signin?callbackUrl=/properties/${id}`);
+  }
   const property = await getPropertyById(id);
 
   console.log("property",property);
