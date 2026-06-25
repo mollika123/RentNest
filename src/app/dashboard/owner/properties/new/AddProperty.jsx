@@ -48,16 +48,16 @@ const handleSubmit = async (e) => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
-    
+   
     // ১. প্রথমে ফর্মের সব নেটিভ ডেটা অবজেক্টে রূপান্তর করুন
     const data = Object.fromEntries(formData.entries());
-    
+   
    
  
 
     const selectedAmenities = formData.getAll("amenities");
 
-  
+ 
     const newErrors = {};
     if (!data.title) newErrors.title = "Property title is required";
     if (!data.location) newErrors.location = "Location is required";
@@ -76,7 +76,7 @@ const handleSubmit = async (e) => {
     }
 
     setErrors({});
-    
+   
 
         const payload = {
             ...data,
@@ -96,7 +96,7 @@ const handleSubmit = async (e) => {
    
                 setPropertyType("");
                 setRentType("");
-                
+               
                 e.target.reset();
                 router.push("/dashboard/owner");
             } else {
@@ -121,7 +121,7 @@ const handleSubmit = async (e) => {
     return (
         <div className="min-h-screen bg-[#0d0d0e] text-white py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mx-auto bg-[#121214] border border-zinc-900 rounded-xl p-8 shadow-2xl">
-                
+               
                 <div className="border-b border-zinc-800 pb-6 mb-8">
                     <h1 className="text-2xl font-semibold tracking-tight">Add New Property</h1>
                     <p className="text-zinc-400 text-sm mt-1">
@@ -136,7 +136,7 @@ const handleSubmit = async (e) => {
                 </div>
 
                 <Form onSubmit={handleSubmit} className="space-y-8" validationErrors={errors} validationBehavior="aria">
-                    
+                   
                     {/* SECTION 1 */}
                     <Fieldset className="space-y-6 w-full">
                         <legend className="text-lg font-medium text-zinc-300 border-b border-zinc-900 w-full pb-2 mb-2">
@@ -172,9 +172,9 @@ const handleSubmit = async (e) => {
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             {/* PROPERTY TYPE SELECT (FIXED) */}
-                            {/* <Select 
-                                className={selectBoxClass} 
-                                name="propertyType" 
+                            {/* <Select
+                                className={selectBoxClass}
+                                name="propertyType"
                                 isInvalid={!!errors.propertyType}
                                 selectedKeys={propertyType ? [propertyType] : []}
                                 onSelectionChange={(keys) => {
@@ -204,7 +204,7 @@ const handleSubmit = async (e) => {
                   name="propertyType"
                   isRequired
                   className="w-full"
-                  
+                 
                 >
                   <Label className="text-zinc-400 font-medium text-sm mb-1 block">Property type</Label>
                   <Select.Trigger className="rounded-2xl">
@@ -225,8 +225,8 @@ const handleSubmit = async (e) => {
                         Apartment
                         <ListBox.ItemIndicator />
                       </ListBox.Item>
-                    
-                
+                   
+               
                     </ListBox>
                   </Select.Popover>
                 </Select>
@@ -236,7 +236,7 @@ const handleSubmit = async (e) => {
                   name="rentType"
                   isRequired
                   className="w-full"
-                  
+                 
                 >
                   <Label className="text-zinc-400 font-medium text-sm mb-1 block">Rent Type</Label>
                   <Select.Trigger className="rounded-2xl">
@@ -257,8 +257,8 @@ const handleSubmit = async (e) => {
                      Yearly
                         <ListBox.ItemIndicator />
                       </ListBox.Item>
-                    
-                
+                   
+               
                     </ListBox>
                   </Select.Popover>
                 </Select>
@@ -350,8 +350,8 @@ const handleSubmit = async (e) => {
                             </div>
                         </div>
 
-                      
-                  
+                     
+                 
                     </Fieldset>
 
                     {/* Action Buttons */}

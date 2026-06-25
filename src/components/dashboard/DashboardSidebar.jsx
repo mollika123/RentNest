@@ -27,8 +27,8 @@ export async function DashboardSidebar() {
     ];
     const adminNavLinks = [
        { icon: House, href: "/", label: "Back to Home" },
-        { icon: House, href: "/dashboard/owner", label: "Overview" },
-        { icon: CirclePlus, href: "/dashboard/owner/properties/new", label: "Add Property" },
+        { icon: Person, href: "/dashboard/admin/users", label: "All Users" },
+        { icon: CirclePlus, href: "/dashboard/admin/properties", label: "All Properties" },
 
         { icon: Briefcase, href: "/dashboard/owner/properties", label: "My Properties" },
         { icon: Person, href: "/dashboard/owner/profile", label: "Profile" },
