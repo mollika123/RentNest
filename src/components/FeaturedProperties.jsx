@@ -36,7 +36,7 @@ const FeaturedProperties = () => {
   }, []);
 
   return (
-    <section className="py-20 container mx-auto px-4">
+    <section className="py-20 w-11/12 mx-auto px-4">
       {/* HEADER */}
       <div className="text-center mb-14">
         <motion.span

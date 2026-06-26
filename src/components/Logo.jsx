@@ -19,8 +19,8 @@ export default function Logo({ className = "h-8" }) {
       </svg>
       
       {/* Brand Text */}
-      <span className="text-xl font-black tracking-tight text-slate-800">
-        Rent<span className="text-blue-600">Nest</span>
+      <span className="text-xl font-black tracking-tight text-blue-800">
+        RentNest
       </span>
     </div>
   );

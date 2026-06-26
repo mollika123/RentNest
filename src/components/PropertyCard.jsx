@@ -44,7 +44,7 @@ export default function PropertyCard({ property }) {
       <Card.Footer className="p-1 pt-0">
         <Link
           href={`/properties/${property._id}`}
-          className="w-full text-center bg-[#171717] hover:bg-[#262626] text-white font-medium text-sm py-2.5 px-4 rounded-lg transition-colors block shadow-sm"
+          className="w-full text-center bg-slate-700 hover:bg-[#262626] text-white font-medium text-sm py-2.5 px-4 rounded-lg transition-colors block shadow-sm"
         >
           View Details
         </Link>

@@ -33,7 +33,7 @@ export async function DashboardSidebar() {
         { icon: Person, href: "/dashboard/admin/users", label: "All Users" },
         { icon: CirclePlus, href: "/dashboard/admin/properties", label: "All Properties" },
 
-        { icon: Briefcase, href: "/dashboard/admin/bookings", label: "My Bookings" },
+        { icon: Briefcase, href: "/dashboard/admin/bookings", label: "All Bookings" },
         { icon: CreditCard, href: "/dashboard/admin/transection", label: "Transections" },
         { icon: Person, href: "/dashboard/admin/profile", label: "Profile" },
     

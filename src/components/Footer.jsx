@@ -11,134 +11,131 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-white/10  text-white">
-      <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
+    <footer className="bg-slate-700 text-white relative overflow-hidden">
+      {/* soft glow background effect */}
+      <div className="absolute inset-0 bg-gradient-to-tr from-black/30 via-slate-800/20 to-violet-900/10 pointer-events-none" />
+
+      <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8 relative z-10">
+        
         {/* TOP SECTION */}
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
-          {/* LEFT COLUMN - BRAND */}
+          
+          {/* BRAND */}
           <div className="space-y-6">
-            {/* Logo */}
             <Link href="/" className="flex items-center gap-3">
               <Logo />
             </Link>
 
-            {/* Description */}
-            <p className="max-w-xs leading-8 text-gray-400">
-              The modern property management platform. Built for landlords and 
+            <p className="max-w-xs leading-7 text-gray-300">
+              The modern property management platform. Built for landlords and
               tenants who value seamless rental workflows.
             </p>
 
-            {/* Social Icons */}
+            {/* Social */}
             <div className="flex items-center gap-4 pt-4">
               <Link
                 href="#"
-                className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/10 transition hover:bg-violet-600"
-                aria-label="Facebook"
+                className="group flex h-11 w-11 items-center justify-center rounded-xl bg-white/10 backdrop-blur-md border border-white/10 transition hover:bg-violet-600 hover:scale-105"
               >
-                <LogoFacebook className="h-5 w-5" />
+                <LogoFacebook className="h-5 w-5 group-hover:scale-110 transition" />
               </Link>
 
               <Link
                 href="#"
-                className="flex h-12 w-12 items-center justify-center rounded-xl bg-violet-600 transition hover:bg-violet-500"
-                aria-label="GitHub"
+                className="group flex h-11 w-11 items-center justify-center rounded-xl bg-violet-600/80 backdrop-blur-md border border-white/10 transition hover:bg-violet-500 hover:scale-105"
               >
-                <LogoGithub className="h-5 w-5" />
+                <LogoGithub className="h-5 w-5 group-hover:scale-110 transition" />
               </Link>
 
               <Link
                 href="#"
-                className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/10 transition hover:bg-violet-600"
-                aria-label="LinkedIn"
+                className="group flex h-11 w-11 items-center justify-center rounded-xl bg-white/10 backdrop-blur-md border border-white/10 transition hover:bg-violet-600 hover:scale-105"
               >
-                <LogoLinkedin className="h-5 w-5" />
+                <LogoLinkedin className="h-5 w-5 group-hover:scale-110 transition" />
               </Link>
             </div>
           </div>
 
-          {/* PRODUCT COLUMN */}
+          {/* PRODUCT */}
           <div>
-            <h3 className="mb-6 text-lg font-semibold text-violet-500">
+            <h3 className="mb-6 text-lg font-semibold text-violet-300">
               Product
             </h3>
-            <ul className="space-y-4 text-gray-400">
-              <li>
-                <Link href="/properties" className="transition hover:text-white">
-                  Rent Management
-                </Link>
-              </li>
-              <li>
-                <Link href="/tenant-screening" className="transition hover:text-white">
-                  Tenant Screening
-                </Link>
-              </li>
-              <li>
-                <Link href="/maintenance" className="transition hover:text-white">
-                  Maintenance Hub
-                </Link>
-              </li>
-              <li>
-                <Link href="/pricing" className="transition hover:text-white">
-                  Pricing Plans
-                </Link>
-              </li>
+            <ul className="space-y-3 text-gray-300">
+              {[
+                ["Rent Management", "/properties"],
+                ["Tenant Screening", "/tenant-screening"],
+                ["Maintenance Hub", "/maintenance"],
+                ["Pricing Plans", "/pricing"],
+              ].map(([name, href]) => (
+                <li key={href}>
+                  <Link
+                    href={href}
+                    className="transition hover:text-white hover:pl-1 duration-200"
+                  >
+                    {name}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* NAVIGATION COLUMN */}
+          {/* NAVIGATION */}
           <div>
-            <h3 className="mb-6 text-lg font-semibold text-violet-500">
+            <h3 className="mb-6 text-lg font-semibold text-violet-300">
               Navigation
             </h3>
-            <ul className="space-y-4 text-gray-400">
-              <li>
-                <Link href="/help-center" className="transition hover:text-white">
-                  Help Center
-                </Link>
-              </li>
-              <li>
-                <Link href="/landlord-guides" className="transition hover:text-white">
-                  Landlord Guides
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="transition hover:text-white">
-                  Contact Support
-                </Link>
-              </li>
+            <ul className="space-y-3 text-gray-300">
+              {[
+                ["Help Center", "/help-center"],
+                ["Landlord Guides", "/landlord-guides"],
+                ["Contact Support", "/contact"],
+              ].map(([name, href]) => (
+                <li key={href}>
+                  <Link
+                    href={href}
+                    className="transition hover:text-white hover:pl-1 duration-200"
+                  >
+                    {name}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* RESOURCES COLUMN */}
+          {/* RESOURCES */}
           <div>
-            <h3 className="mb-6 text-lg font-semibold text-violet-500">
+            <h3 className="mb-6 text-lg font-semibold text-violet-300">
               Resources
             </h3>
-            <ul className="space-y-4 text-gray-400">
-              <li>
-                <Link href="/legal-forms" className="transition hover:text-white">
-                  Lease Agreements
-                </Link>
-              </li>
-              <li>
-                <Link href="/newsroom" className="transition hover:text-white">
-                  Newsroom
-                </Link>
-              </li>
+            <ul className="space-y-3 text-gray-300">
+              {[
+                ["Lease Agreements", "/legal-forms"],
+                ["Newsroom", "/newsroom"],
+              ].map(([name, href]) => (
+                <li key={href}>
+                  <Link
+                    href={href}
+                    className="transition hover:text-white hover:pl-1 duration-200"
+                  >
+                    {name}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
 
-        {/* BOTTOM SECTION */}
-        <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-sm text-gray-500 md:flex-row">
-          <p>Copyright {currentYear} — RentNest Inc.</p>
+        {/* BOTTOM */}
+        <div className="mt-16 flex flex-col md:flex-row items-center justify-between gap-4 border-t border-white/10 pt-8 text-sm text-gray-400">
+          <p>© {currentYear} — RentNest Inc.</p>
 
           <div className="flex items-center gap-6">
-            <Link href="/terms" className="transition hover:text-white">
-              Terms & Policy
+            <Link className="hover:text-white transition" href="/terms">
+              Terms
             </Link>
-            <Link href="/privacy" className="transition hover:text-white">
-              Privacy Guidelines
+            <Link className="hover:text-white transition" href="/privacy">
+              Privacy
             </Link>
           </div>
         </div>
