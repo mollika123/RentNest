@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# RentNest 🏠
 
-## Getting Started
+RentNest is a modern, full-stack property rental and booking platform designed to bridge the gap between property owners and tenants. It provides owners with powerful analytics tools to track earnings and manage properties, while offering tenants a seamless browsing and booking experience.
 
-First, run the development server:
+## 🚀 Live Demo
+Experience the live application here: **[https://rentnest-app.vercel.app](https://your-live-url-here.com)** *(Replace with your actual URL)*
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📌 Purpose
+The main purpose of RentNest is to simplify the house/property renting process. Property owners often struggle to manage multiple listings, track monthly bookings, and calculate total earnings accurately. RentNest automates this by providing an intuitive dashboard with visual charts. For tenants, it acts as a reliable marketplace to discover and book verified properties easily.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## ✨ Key Features
 
-## Learn More
+### For Property Owners:
+* **Analytics Dashboard:** View total earnings, total properties listed, and total bookings at a single glance.
+* **Monthly Earnings Chart:** A dynamic interactive chart showing earnings distribution over the last 12 months.
+* **Property Management:** Easily list new properties, update descriptions, set prices, and monitor booking status.
 
-To learn more about Next.js, take a look at the following resources:
+### For Tenants & General Users:
+* **Advanced Discovery:** Browse through available apartments, houses, or rooms with detailed specifications.
+* **Seamless Booking:** Instant booking functionality that securely logs data directly into the system.
+* **Responsive UI:** Fully optimized for Mobile, Tablet, and Desktop screens with a clean dark-mode aesthetic.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🛠️ Tech Stack & NPM Packages Used
 
-## Deploy on Vercel
+### Front-end (Next.js App Router)
+* **next** (v14/v15) - The React framework for production.
+* **react / react-dom** - Core UI library.
+* **@heroui/react** (formerly NextUI) - Used for modern, pre-built UI components like Cards, Buttons, and Layouts.
+* **@gravity-ui/icons** - Integrated for clean, lightweight, and modern iconography across the dashboard.
+* **recharts** / **chart.js** (via `OwnerChart`) - Utilized for rendering responsive data visualization graphs.
+* **tailwindcss** - Utility-first CSS framework for fast and adaptive styling.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Back-end (Node.js & Express)
+* **express** - Fast, unopinionated, minimalist web framework for the API server.
+* **mongodb** - NoSQL database used to store property listings, user info, and booking timelines.
+* **cors** - Middleware to enable cross-origin resource sharing between Front-end and Back-end.
+* **dotenv** - For managing secure environment variables locally and in production.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 💻 Getting Started
+
+### Prerequisites
+Make sure you have **Node.js** and **npm** installed on your machine.
+

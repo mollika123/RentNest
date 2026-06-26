@@ -21,13 +21,11 @@ export async function POST(request) {
     const propertyId = formData.get('propertyId')
     const bookingId = formData.get('bookingId') // যদি এক্সপ্রেস থেকে বুকিং আইডি পাস করেন
 
-    /* 📢 নোট: যদি ফ্রন্টএন্ড থেকে fetch() দিয়ে JSON পাঠান, তবে উপরের formData-র বদলে নিচের লাইনটি ব্যবহার করবেন:
-    const { price, title, propertyId, bookingId } = await request.json();
-    */
+   
 
     // স্ট্রাইপ সেশন তৈরি
     const session = await stripe.checkout.sessions.create({
-      customer_email: user?.email || undefined, // লগইন না থাকলে undefined থাকবে
+      customer_email: user?.email || undefined,
       line_items: [
         {
           price_data: {
@@ -47,14 +45,14 @@ export async function POST(request) {
         userEmail: user?.email || "no-email",
         title: String(title),
         propertyId: String(propertyId),
-        bookingId: bookingId ? String(bookingId) : "" // এক্সপ্রেসের insertedId এখানে সেভ করে রাখতে পারেন
+        bookingId: bookingId ? String(bookingId) : "" 
       },
       mode: 'payment',
       success_url: `${origin}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/properties`, // ক্যানসেল ইউআরএল দেওয়া ভালো
     });
 
-    // সরাসরি পেমেন্ট পেজে রিডাইরেক্ট (303 See Other স্ট্যান্ডার্ড)
+    
     return NextResponse.redirect(session.url, 303)
 
   } catch (err) {

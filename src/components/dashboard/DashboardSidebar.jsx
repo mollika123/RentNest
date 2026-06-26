@@ -3,6 +3,7 @@
 import { getUserSession } from "@/lib/core/session";
 import { LayoutSideContentLeft, Bell,Briefcase, Envelope, Gear, House, Magnifier, Person, CirclePlus } from "@gravity-ui/icons";
 import { Button, Drawer } from "@heroui/react";
+import { CreditCard } from "lucide-react";
 import Link from "next/link";
 
 export async function DashboardSidebar() {
@@ -26,12 +27,15 @@ export async function DashboardSidebar() {
     
     ];
     const adminNavLinks = [
-       { icon: House, href: "/", label: "Back to Home" },
+        { icon: House, href: "/", label: "Back to Home" },
+        
+       
         { icon: Person, href: "/dashboard/admin/users", label: "All Users" },
         { icon: CirclePlus, href: "/dashboard/admin/properties", label: "All Properties" },
 
-        { icon: Briefcase, href: "/dashboard/owner/bookings", label: "My Bookings" },
-        { icon: Person, href: "/dashboard/owner/profile", label: "Profile" },
+        { icon: Briefcase, href: "/dashboard/admin/bookings", label: "My Bookings" },
+        { icon: CreditCard, href: "/dashboard/admin/transection", label: "Transections" },
+        { icon: Person, href: "/dashboard/admin/profile", label: "Profile" },
     
     ];
     const navLinksMap = {
