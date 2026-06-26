@@ -1,5 +1,6 @@
 import Banner from "@/components/Banner";
 import CustomerReviews from "@/components/CustomerReviews";
+import FeaturedProperties from "@/components/FeaturedProperties";
 import HowItWorks from "@/components/HowItWorks";
 import WhyChooseUs from "@/components/WhyChooseUs";
 import Image from "next/image";
@@ -12,6 +13,7 @@ export default function Home() {
       
       className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
       <Banner></Banner>
+      <FeaturedProperties></FeaturedProperties>
       <WhyChooseUs></WhyChooseUs>
       <CustomerReviews></CustomerReviews>
       <HowItWorks></HowItWorks>

@@ -2,9 +2,9 @@ import React from "react";
 import PropertyCard from "@/components/PropertyCard";
 import FilterBar from "@/components/FilterBar";
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
-// 🚀 ফিক্স: পাবলিক রাউটের জন্য কোনো JWT ছাড়া সাধারণ fetch ব্যবহার করা হচ্ছে
+
+
 export const getProperties = async (filters) => {
   try {
     const query = new URLSearchParams();
@@ -16,8 +16,8 @@ export const getProperties = async (filters) => {
     if (filters?.sort) query.set("sort", filters.sort);
 
     // serverFetch এর বদলে সরাসরি fetch ব্যবহার করুন কারণ এটি একটি পাবলিক API
-    const res = await fetch(`${baseUrl}/api/properties?${query.toString()}`, {
-      cache: 'no-store' // রিয়েল-টাইম সার্চ ডাটার জন্য ক্যাশিং বন্ধ রাখা ভালো
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/properties?${query.toString()}`, {
+      cache: 'no-store' 
     });
 
     if (!res.ok) {
