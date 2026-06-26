@@ -72,7 +72,10 @@ const PropertyTable = ({ properties = [] }) => {
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ rejectionReason: reason }),
+          body: JSON.stringify({
+  title: "Rejected",
+  feedback: reason,
+}),
         }
       );
 

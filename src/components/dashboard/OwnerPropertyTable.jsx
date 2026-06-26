@@ -15,6 +15,7 @@ const statusColorMap = {
 export default function OwnerPropertyTable({ properties = [] }) {
  const router = useRouter();
   console.log("properties", properties);
+  const [selectedProperty, setSelectedProperty] = React.useState(null);
  
   const handleRemove = async (id) => {
    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/properties/${id}`, {
@@ -25,6 +26,7 @@ export default function OwnerPropertyTable({ properties = [] }) {
     });
 console.log("Response status:", res.status);
     const data = await res.json();
+    console.log(data,"data");
     if (data.deletedCount > 0) {
       router.refresh(); // data refetch করবে
       // অথবা router.push('/dashboard/owner/properties');
@@ -97,7 +99,16 @@ console.log("Response status:", res.status);
 
                     <EditModal property={item}></EditModal>
 
-                     
+                      {/* ℹ️ ICON - ONLY REJECTED */}
+    {item.status === "Rejected" && (
+      <button
+        onClick={() => setSelectedProperty(item)}
+        className="text-red-500 hover:text-red-700"
+        title="View rejection details"
+      >
+        ℹ️
+      </button>
+    )}
                     <button 
    onClick={() => handleRemove(item._id)}
   className="p-1 hover:text-red-500 transition-colors"
@@ -113,6 +124,38 @@ console.log("Response status:", res.status);
           </Table.Content>
         </Table.ResizableContainer>
       </Table>
+      {selectedProperty && (
+  <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+
+    <div className="bg-white w-[400px] p-6 rounded-lg relative">
+
+      <button
+        onClick={() => setSelectedProperty(null)}
+        className="absolute top-2 right-2"
+      >
+        ✖
+      </button>
+
+   <h2 className="text-lg font-bold text-red-600 mb-3">
+  {selectedProperty.rejectionTitle}
+</h2>
+
+<div className="space-y-2">
+  <p>
+    <strong>Issue:</strong>{" "}
+    {selectedProperty.rejectionFeedback?.title}
+  </p>
+
+  <p>
+    <strong>Details:</strong>{" "}
+    {selectedProperty.rejectionFeedback?.feedback}
+  </p>
+</div>
+
+    </div>
+
+  </div>
+)}
     </div>
   );
 }

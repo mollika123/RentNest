@@ -19,19 +19,20 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useSession } from "@/lib/auth-client";
 
-export default function AddProperty({ agency }) {
+export default function AddProperty() {
     const router = useRouter();
+     const [propertyType, setPropertyType] = useState("");
+    const [rentType, setRentType] = useState("");
+    const [errors, setErrors] = useState({});
  const { data: session, isPending } = useSession();
-
+console.log("SESSION:", session);
 if (isPending) {
   return <p>Loading...</p>;
 }
 
 const user = session?.user;
     // সিলেক্টেড স্টেট ম্যানেজমেন্ট
-    const [propertyType, setPropertyType] = useState("");
-    const [rentType, setRentType] = useState("");
-    const [errors, setErrors] = useState({});
+   
 
     const amenitiesOptions = [
         { label: "WiFi", value: "wifi" },
@@ -81,9 +82,7 @@ const handleSubmit = async (e) => {
         const payload = {
             ...data,
            ownerId: user?.id || user?._id || null,
-            agencyName: agency?.agencyName || agency?.name || "Independent Owner",
-            agencyId: agency?._id || null,
-            agencyLogo: agency?.logo || null,
+           
            status: "pending",
             amenities: selectedAmenities,
             createdAt: new Date(),
@@ -130,7 +129,7 @@ const handleSubmit = async (e) => {
 
                     <div className="mt-4 inline-flex items-center gap-2 bg-zinc-900/50 border border-zinc-800 rounded-lg px-3 py-1.5 text-xs text-zinc-400">
                         <House size={14} className="text-zinc-500" />
-                        Listing as: <span className="font-semibold text-zinc-300">{agency?.agencyName || agency?.name || "Independent Owner"}</span>
+                        Listing as: <span className="font-semibold text-zinc-300">{user?.name  || "Independent Owner"}</span>
                         <span className="text-emerald-500 font-medium bg-emerald-950/30 px-1.5 py-0.5 rounded border border-emerald-900/50">Verified</span>
                     </div>
                 </div>

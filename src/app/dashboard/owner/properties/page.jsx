@@ -20,7 +20,7 @@ const OwnerProperty = async () => {
 
   return (
     <div>
-      <OwnerPropertyTable properties={properties} />
+<OwnerPropertyTable properties={properties?.data ?? []} />
     </div>
   );
 };
