@@ -29,47 +29,46 @@ export default function ReviewSection({
   }
 
   const handleReviewSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    if (!comment.trim()) return;
+  if (!comment.trim()) return;
 
-    setSubmitting(true);
+  setSubmitting(true);
 
-    const newReview = {
-      propertyId,
-      reviewerName: user?.name,
-      reviewerEmail: user?.email,
-      rating: Number(rating),
-      comment: comment.trim(),
-      createdAt: new Date().toISOString(),
-    };
-
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/properties/reviews`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(newReview),
-        }
-      );
-
-      const data = await response.json();
-
-      if (response.ok && data.success) {
-        setReviews((prev) => [newReview, ...prev]);
-        setComment("");
-        setRating(5);
-      } else {
-        alert(data.error || "Failed to submit review");
-      }
-    } catch (error) {
-      console.error(error);
-      alert("Server error");
-    } finally {
-      setSubmitting(false);
-    }
+  const newReview = {
+    propertyId,
+    reviewerName: user?.name,
+    reviewerEmail: user?.email,
+    rating: Number(rating),
+    comment: comment.trim(),
   };
+
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/properties/reviews`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newReview),
+      }
+    );
+
+    const data = await response.json();
+
+    if (response.ok && data.success) {
+      setReviews((prev) => [data.review, ...prev]); // FIXED
+      setComment("");
+      setRating(5);
+    } else {
+      alert(data.error || "Failed to submit review");
+    }
+  } catch (error) {
+    console.error(error);
+    alert("Server error");
+  } finally {
+    setSubmitting(false);
+  }
+};
 
   return (
     <div className="space-y-6">
@@ -92,7 +91,7 @@ export default function ReviewSection({
 
           <select
             value={rating}
-            onChange={(e) => setRating(e.target.value)}
+           onChange={(e) => setRating(Number(e.target.value))}
             className="border border-gray-200 rounded-lg p-2.5 text-sm bg-white"
           >
             <option value="5">⭐⭐⭐⭐⭐ (5/5)</option>

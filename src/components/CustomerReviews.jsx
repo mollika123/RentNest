@@ -1,109 +1,126 @@
-import React from "react";
 import { Card, Avatar } from "@heroui/react";
-import { Star, Quote } from "lucide-react";
+import { Star } from "lucide-react"; 
+import * as motion from "framer-motion/client"; 
 
-export default function CustomerReviews() {
-  const reviews = [
-    {
-      name: "Sarah Jenkins",
-      role: "Property Portfolio Owner (12 Units)",
-      avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150",
-      rating: 5,
-      title: "Saved me hours of chasing rent!",
-      comment:
-        "The automated rent collection is a game-changer. Tenants receive text reminders, pay digitally, and the money drops straight into my account. I haven't tracked down a paper check in months.",
-    },
-    {
-      name: "Marcus Vance",
-      role: "Independent Landlord",
-      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150",
-      rating: 5,
-      title: "Flawless tenant screening",
-      comment:
-        "The screening setup on RentNest runs credit, eviction, and background histories instantly. Found my last two tenants through it, and they've been incredibly reliable and clean.",
-    },
-    {
-      name: "Elena Rostova",
-      role: "Tenant at Nestway Towers",
-      avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150",
-      rating: 5,
-      title: "So easy as a renter",
-      comment:
-        "I love using RentNest from the tenant side. Submitting maintenance requests takes two seconds, and I can split rent with my roommate seamlessly directly inside the portal.",
-    },
-  ];
+export default async function CustomerReviews() {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/properties/tenant/reviews`,
+      { cache: "no-store" }
+    );
 
-  return (
-    <section className="py-24 px-6 bg-default-50/50 relative overflow-hidden">
-      {/* Background soft ambient decoration */}
-      <div className="absolute top-1/2 left-0 w-72 h-72 bg-success/10 rounded-full blur-3xl pointer-events-none -translate-y-1/2" />
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
+    if (!res.ok) {
+      throw new Error(`Failed to fetch reviews: ${res.statusText}`);
+    }
 
-      <div className="max-w-7xl mx-auto relative z-10">
-        {/* Section Header */}
-        <div className="flex flex-col items-center text-center mb-16 space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-success/20 bg-success/5 text-xs font-semibold uppercase tracking-wider text-success">
+    const data = await res.json();
+    const reviews = Array.isArray(data) ? data : [];
+
+    if (reviews.length === 0) {
+      return (
+        <div className="text-center py-16 text-slate-500 font-medium">
+          No reviews found
+        </div>
+      );
+    }
+
+    return (
+      <section className="py-20 px-4 container mx-auto max-w-7xl">
+        {/* HEADING SECTION WITH FRAMER MOTION */}
+        <div className="text-center mb-16">
+          <motion.span
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-xl font-bold uppercase tracking-widest text-cyan-900 "
+          >
             Testimonials
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-foreground">
-            Loved by Landlords & Tenants Alike
-          </h2>
-          <p className="text-default-500 max-w-xl text-base sm:text-lg">
-            See how RentNest is removing the friction from modern rental management across thousands of active properties.
-          </p>
+          </motion.span>
+          <motion.h2
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-3xl md:text-4xl font-bold mt-2 text-gray-600 tracking-tight"
+          >
+            Customer Reviews
+          </motion.h2>
+          <motion.div
+            initial={{ width: 0 }}
+            whileInView={{ width: 60 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 }}
+            className="h-1 bg-violet-900 mx-auto mt-4  rounded-full"
+          />
         </div>
 
-        {/* Reviews Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {reviews.map((review, index) => (
-            <Card
-              key={index}
-              className="group border border-default-200 bg-background hover:border-default-400 hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
-            >
-              <Card.Header className="p-6 pb-2 flex items-start justify-between">
-                <div className="flex items-center space-x-4">
-                  <Avatar
-                    src={review.avatar}
-                    name={review.name}
-                    className="w-12 h-12 border-2 border-default-100"
-                  />
-                  <div className="flex flex-col">
-                    {/* Hero UI v3 clean structural typography titles */}
-                    <Card.Title className="text-base font-bold text-foreground">
-                      {review.name}
-                    </Card.Title>
-                    <Card.Description className="text-xs text-default-400">
-                      {review.role}
-                    </Card.Description>
+        {/* REVIEWS GRID */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {reviews.map((rev, index) => {
+            const rating = Math.max(0, Math.min(5, Number(rev.rating) || 0));
+            const reviewId = rev._id || index;
+            const reviewerName = rev.reviewerName || rev.name || "Anonymous";
+            const reviewerEmail = rev.reviewerEmail || rev.role || "";
+
+            return (
+              <motion.div
+                key={reviewId}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
+                {/* সরাসরি Card এর ভেতরেই প্যাডিং দিয়ে ডিজাইন করা হয়েছে */}
+                <Card className="bg-slate-900 border border-slate-800/80 shadow-xl rounded-2xl hover:border-slate-700/60 transition-all duration-300 p-6 flex flex-col gap-4">
+                  {/* STARS */}
+                  <div className="flex gap-0.5">
+                    {[...Array(rating)].map((_, i) => (
+                      <Star
+                        key={`${reviewId}-star-${i}`}
+                        className="w-4 h-4 text-amber-400 fill-amber-400"
+                      />
+                    ))}
+                    {[...Array(5 - rating)].map((_, i) => (
+                      <Star
+                        key={`${reviewId}-empty-${i}`}
+                        className="w-4 h-4 text-slate-700"
+                      />
+                    ))}
                   </div>
-                </div>
 
-                {/* Decorative Quote Icon floating upper right */}
-                <Quote className="w-8 h-8 text-default-200/60 group-hover:text-primary/20 transition-colors duration-300" />
-              </Card.Header>
-
-              <Card.Content className="p-6 pt-2 flex-grow space-y-3">
-                {/* Dynamic Star Ratings Row */}
-                <div className="flex items-center space-x-0.5">
-                  {[...Array(review.rating)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-warning text-warning" />
-                  ))}
-                </div>
-
-                {/* Review Body */}
-                <div className="space-y-1.5">
-                  <h4 className="text-md font-semibold text-foreground">
-                    "{review.title}"
-                  </h4>
-                  <p className="text-sm text-default-500 leading-relaxed">
-                    {review.comment}
+                  {/* COMMENT */}
+                  <p className="text-slate-300 text-sm leading-relaxed italic">
+                    "{rev.comment}"
                   </p>
-                </div>
-              </Card.Content>
-            </Card>
-          ))}
+
+                  {/* PROFILE DETAILS */}
+                  <div className="flex items-center gap-3.5 mt-2 pt-4 border-t border-slate-800/60">
+                    <Avatar 
+                      name={reviewerName} 
+                      className="w-11 h-11 text-sm font-semibold bg-violet-600 text-white ring-2 ring-violet-500/30 object-cover"
+                    />
+                    <div className="flex flex-col">
+                      <h4 className="font-bold text-white text-sm leading-tight">
+                        {reviewerName}
+                      </h4>
+                      <span className="text-slate-500 text-xs mt-0.5">
+                        {reviewerEmail}
+                      </span>
+                    </div>
+                  </div>
+                </Card>
+              </motion.div>
+            );
+          })}
         </div>
+      </section>
+    );
+  } catch (error) {
+    console.error("Reviews fetch error:", error);
+    return (
+      <div className="text-center py-16 text-red-500 font-medium">
+        Failed to load reviews
       </div>
-    </section>
-  );
+    );
+  }
 }
