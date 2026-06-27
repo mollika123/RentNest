@@ -50,7 +50,7 @@ export default function Banner() {
       style={{ backgroundImage: "url('/banner.jpeg')" }}
     >
       {/* Overlay */}
-      <div className="absolute inset-0 bg-cyan-900/50 z-0"></div>
+      <div className="absolute inset-0 bg-[#18181b]/50 z-0"></div>
 
       {/* Text Section */}
       <motion.div

@@ -5,9 +5,16 @@ import {
   Bookmark,
 } from "@gravity-ui/icons";
 import OwnerChart from "@/components/OwnerChart";
+import { headers } from "next/headers";
+import { auth } from "@/lib/auth";
 
 export default async function OwnerOverview({ params }) {
-  const email = params?.email;
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  const email = session?.user?.email;
+  console.log(email);
 
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/owner/analyse/${email}`,

@@ -8,8 +8,7 @@ export default function BookingModal({ property }) {
   const [isOpen, setIsOpen] = useState(false);
  
   
-  const propertyId = property._id?.$oid || property._id;
-
+ const propertyId = String(property._id);
   return (
     <>
      
