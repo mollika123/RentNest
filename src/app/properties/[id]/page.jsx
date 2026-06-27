@@ -93,7 +93,7 @@ const PropertyDetailsPage = async ({ params }) => {
             <hr className="border-gray-100" />
 
             {/* ৩. নতুন রিভিউ সেকশন (এখানে ইউজার নাম দিয়ে রিভিউ দিতে পারবে) */}
-            <ReviewSection propertyId={id} existingReviews={property.reviews || []} />
+            <ReviewSection user={session.user} propertyId={id} existingReviews={property.reviews || []} />
           </div>
 
           {/* ডানের কলাম: প্রাইসিং, বুকিং এবং ফেভারিট বাটন সাইডবার */}

@@ -38,12 +38,17 @@ const FeaturedProperties = () => {
   return (
     <section className="py-20 w-11/12 mx-auto px-4">
       {/* HEADER */}
-      <div className="text-center mb-14">
-        <motion.span
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          className="text-xs uppercase tracking-widest text-violet-500 font-bold"
+    <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-14"
         >
+      <motion.span
+  initial={{ opacity: 0, y: -10 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.6 }}
+>
           Curated Listings
         </motion.span>
 
@@ -58,7 +63,7 @@ const FeaturedProperties = () => {
         <p className="text-gray-500 max-w-xl mx-auto text-sm mt-3">
           Discover handpicked, verified rental properties for you.
         </p>
-      </div>
+      </motion.div>
 
       {/* CONTENT */}
       {loading ? (

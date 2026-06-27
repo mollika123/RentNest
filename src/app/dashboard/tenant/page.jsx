@@ -1,11 +1,18 @@
-import React from 'react';
+import { DashboardStats } from "@/components/dashboard/DashboardStats";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
-const TenantHomePage = () => {
+export default async function TenantHome() {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  const name = session?.user?.name || "Guest";
+
   return (
-    <div>
-      tenant
+    <div className="text-2xl font-bold">
+      <h1>Hi {name}</h1>
+      <DashboardStats></DashboardStats>
     </div>
   );
-};
-
-export default TenantHomePage;
+}
