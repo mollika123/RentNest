@@ -6,7 +6,7 @@ import {
     Label, InputGroup, Input, RadioGroup, Radio, ListBox
 } from "@heroui/react";
 import { Eye, EyeSlash, Person, At, ShieldKeyhole, Picture } from "@gravity-ui/icons";
-import { signUp } from "@/lib/auth-client";
+import { authClient, signUp } from "@/lib/auth-client";
 
 export default function SignupPage() {
     // ফর্মের স্টেটসমূহ (Form Fields)
@@ -23,7 +23,11 @@ export default function SignupPage() {
     const [success, setSuccess] = useState("");
 
     const toggleVisibility = () => setIsVisible(!isVisible);
-
+    const handleGoogleSignIn = async () => {
+      await authClient.signIn.social({
+          provider: 'google'
+      })
+    }
     const handleSignup = async (e) => {
         e.preventDefault();
 
@@ -138,6 +142,7 @@ export default function SignupPage() {
                             >
                                 {isVisible ? <EyeSlash size={18} /> : <Eye size={18} />}
                             </button>
+                        
                         </InputGroup>
                     </TextField>
 
@@ -158,6 +163,7 @@ export default function SignupPage() {
                             </Radio>
                         </RadioGroup>
                     </div> */}
+                       
     <Select
   isRequired
   name="role"
@@ -184,7 +190,10 @@ export default function SignupPage() {
       </ListBox.Item>
     </ListBox>
   </Select.Popover>
-</Select>
+                    </Select>
+                      <p className="text-center">Or</p>
+        
+          <Button onClick={handleGoogleSignIn} variant="outline" className={'w-full bg-blue-600 text-white'}> Register With Google</Button>
                     {/* এরর মেসেজ */}
                     {error && (
                         <div className="p-3.5 text-xs font-medium rounded-xl bg-red-100/60 dark:bg-red-950/50 text-red-700 dark:text-red-400 border border-red-200 dark:border-red-900">
@@ -202,7 +211,7 @@ export default function SignupPage() {
                     <Button
                         type="submit"
                         color="primary"
-                        className="w-full font-semibold rounded-xl text-sm h-12"
+                        className="w-full bg-blue-600 text-white"
                         isLoading={isLoading}
                         isDisabled={isLoading}
                     >
