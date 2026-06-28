@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
     Form,
     Fieldset,
@@ -21,16 +21,19 @@ import { useSession } from "@/lib/auth-client";
 
 export default function AddProperty() {
     const router = useRouter();
+     const { data: session, isPending } = useSession();
      const [propertyType, setPropertyType] = useState("");
     const [rentType, setRentType] = useState("");
     const [errors, setErrors] = useState({});
- const { data: session, isPending } = useSession();
-console.log("SESSION:", session);
-if (isPending) {
-  return <p>Loading...</p>;
-}
-
+    const [mounted, setMounted] = useState(false);
+    useEffect(() => {
+        setMounted(true);
+    }, []);
 const user = session?.user;
+
+
+
+
     // সিলেক্টেড স্টেট ম্যানেজমেন্ট
    
 
@@ -89,8 +92,8 @@ const handleSubmit = async (e) => {
         };
 
     try {
-            const currentToken=session?.session?.token
-            const res = await createProperty(payload,currentToken);
+      
+            const res = await createProperty(payload);
             if (res?.insertedId) {
                 toast.success("Property added successfully 🎉");
    
@@ -107,7 +110,13 @@ const handleSubmit = async (e) => {
             toast.error("Something went wrong!");
         }
     };
-
+if (!mounted || isPending) {
+        return (
+            <div className="flex justify-center items-center h-48">
+                <p className="text-gray-500 font-medium">লোড হচ্ছে...</p>
+            </div>
+        );
+    }
     // স্টাইলিং ক্লাসেস
     const textInputClass = "w-full text-white bg-[#1c1c1e] border border-zinc-800 hover:bg-[#242426] focus:border-zinc-600 rounded-lg h-12 px-3 text-sm placeholder:text-zinc-600 outline-none transition-all";
     const iconInputClass = "w-full text-white bg-[#1c1c1e] border border-zinc-800 hover:bg-[#242426] focus:border-zinc-600 rounded-lg h-12 pl-10 pr-3 text-sm placeholder:text-zinc-600 outline-none transition-all";

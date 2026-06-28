@@ -4,14 +4,13 @@ import { headers } from "next/headers"
 import { authClient } from "../auth-client"
 
 const baseUrl=process.env.NEXT_PUBLIC_BASE_URL
-export const createProperty = async (newPropertyData,token) => {
+export const createProperty = async (newPropertyData) => {
  
-  console.log(token,"token");
   const res = await fetch(`${baseUrl}/api/properties`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      authorization:`Bearer ${token}`
+   
     },
     body:JSON.stringify(newPropertyData)
   })
