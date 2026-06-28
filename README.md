@@ -2,8 +2,7 @@
 
 RentNest is a modern, full-stack property rental and booking platform designed to bridge the gap between property owners and tenants. It provides owners with powerful analytics tools to track earnings and manage properties, while offering tenants a seamless browsing and booking experience.
 
-## 🚀 Live Demo
-Experience the live application here: **[https://rentnest-app.vercel.app]([https://rentnest-pi.vercel.app/])** *(Replace with your actual URL)*
+
 
 ---
 
