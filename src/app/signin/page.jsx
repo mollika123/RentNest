@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Card, Button, Link, TextField, Label, InputGroup, Input } from "@heroui/react";
 import { Eye, EyeSlash, At, ShieldKeyhole } from "@gravity-ui/icons";
-import { signIn } from "@/lib/auth-client";
+import { authClient, signIn } from "@/lib/auth-client";
 
 export default function SigninPage() {
     // Form fields
@@ -17,7 +17,11 @@ export default function SigninPage() {
     const [success, setSuccess] = useState("");
 
     const toggleVisibility = () => setIsVisible(!isVisible);
-
+  const handleGoogleSignIn = async () => {
+      await authClient.signIn.social({
+          provider: 'google'
+      })
+    }
     const handleSignin = async (e) => {
         e.preventDefault();
 
@@ -113,13 +117,15 @@ export default function SigninPage() {
                     <Button
                         type="submit"
                         color="primary"
-                        className="w-full font-semibold rounded-xl text-sm h-12"
+                        className="w-full bg-blue-600 text-white"
                         isLoading={isLoading}
                         isDisabled={isLoading}
                     >
                         Sign In
                     </Button>
-
+  <p className="text-center">Or</p>
+        
+          <Button onClick={handleGoogleSignIn} variant="outline" className={'w-full bg-blue-600 text-white'}> SignIn With Google</Button>
                     {/* Navigation Option */}
                     <div className="text-center pt-4 border-t border-zinc-100 dark:border-zinc-800 mt-2 text-sm text-zinc-600 dark:text-zinc-400">
                         New to HireLoop?{" "}

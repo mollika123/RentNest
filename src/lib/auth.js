@@ -18,17 +18,15 @@ export const auth = betterAuth({
    emailAndPassword: { 
     enabled: true, 
   }, 
-    user: {
-       additionalFields: {
-          role: {
-              default:"tenant"
-            } 
-            
-      //  plan: {
-      //           default:'tenant_free'
-      //         }
-            
-        }
+     user: {
+    additionalFields: {
+      role: {
+        defaultValue: "tenant",
+      },
+      isBlocked: {
+        defaultValue: false,
+      },
+    },
   },
       session: {
     cookieCache: {
@@ -40,10 +38,10 @@ export const auth = betterAuth({
   plugins: [jwt()],
   
     
-  socialProviders: { 
-    github: { 
-      clientId: process.env.GITHUB_CLIENT_ID , 
-      clientSecret: process.env.GITHUB_CLIENT_SECRET , 
-    }, 
+    socialProviders: {
+    google: {
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    },
   }, 
 });

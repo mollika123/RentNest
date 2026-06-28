@@ -88,8 +88,9 @@ const handleSubmit = async (e) => {
             createdAt: new Date(),
         };
 
-        try {
-            const res = await createProperty(payload);
+    try {
+            const currentToken=session?.session?.token
+            const res = await createProperty(payload,currentToken);
             if (res?.insertedId) {
                 toast.success("Property added successfully 🎉");
    

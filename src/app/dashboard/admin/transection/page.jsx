@@ -26,7 +26,10 @@ async function getTransactions() {
 }
 
 export default async function AdminTransactions({ searchParams }) {
-  const page = Number(searchParams?.page || 1);
+const resolvedSearchParams = await searchParams;
+  
+  // 3. Extract the page property safely from the resolved object
+  const page = Number(resolvedSearchParams?.page || 1);
 
   const transactions = await getTransactions();
 
